@@ -37,16 +37,18 @@ RUN apt-get update && \
     python3-distutils iproute2
 
 # Get SoapySDR, compile and install
-RUN git clone https://github.com/pothosware/SoapySDR.git && \
-    cd SoapySDR && \
+# RUN git clone https://github.com/pothosware/SoapySDR.git && \
+COPY SoapySDR SoapySDR
+RUN cd SoapySDR && \
     git checkout 637023d5e1b60e117a6533daddc4d991a33375f9 && \
     mkdir build && cd build && \
     cmake ../ && make && make install && \
     ldconfig
 
 # Get Limesuite, compile and install
-RUN git clone https://github.com/myriadrf/LimeSuite.git && \
-    cd LimeSuite && \
+# RUN git clone https://github.com/myriadrf/LimeSuite.git && \
+COPY LimeSuite LimeSuite
+RUN cd LimeSuite && \
     git checkout tags/v22.09.1 -b v22.09.1 && \
     mkdir builddir && cd builddir && \
     cmake ../ && make && make install && \
@@ -58,16 +60,18 @@ RUN add-apt-repository ppa:ettusresearch/uhd && \
     uhd_images_downloader
 
 # Get srsGUI, compile and install
-RUN git clone https://github.com/srsran/srsGUI && \
-    cd srsGUI/ && \
+# RUN git clone https://github.com/srsran/srsGUI && \
+COPY srsGUI srsGUI
+RUN cd srsGUI/ && \
     mkdir build && cd build && \
     cmake ../ && make -j`nproc` && make install && ldconfig
 
 #RUN apt-get update && apt-get install -y gdb libdw-dev
 
 # Get srsLTE, compile and install
-RUN git clone https://github.com/srsran/srsRAN_4G.git && \
-    cd srsRAN_4G && \
+# RUN git clone https://github.com/srsran/srsRAN_4G.git && \
+COPY srsRAN_4G srsRAN_4G
+RUN cd srsRAN_4G && \
     git checkout 4eb990c9c6ad9b0af943bba71d0f8355b3ebb259 && \
     mkdir build && cd build && \
     cmake ../ && make -j`nproc` && make install && \

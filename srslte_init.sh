@@ -91,5 +91,35 @@ else
 	echo "Error: Invalid component name: '$COMPONENT_NAME'"
 fi
 
+
+INTERFACE="tun_srsue"  #srsue interface
+MAX_TRIES=30
+tries=0
+sleep 3
+
+while [ "$tries" -lt "$MAX_TRIES" ]; do
+    if ip link show "$INTERFACE" | grep -q "UP"; then
+        echo "Interface $INTERFACE is UP."
+        ip route del default dev eth0
+        ip route add default via 10.45.1.1 dev tun_srsue
+        echo "Routes are updated"
+        echo "Please make sure you have entered these two commands in the host operating system:"
+        echo "sudo ip ro add 10.45.0.0/16 via 10.53.1.2"
+        echo "sudo iptables -t nat -A POSTROUTING -o <main interface> -j MASQUERADE"
+        break
+    else
+        echo "Interface $INTERFACE is DOWN."
+    fi
+
+    tries=$((tries + 1))
+    sleep 2  # Adjust the sleep duration as needed
+done
+
+if [ "$tries" = "$MAX_TRIES" ]; then
+    echo "Maximum number of tries reached. Exiting."
+else
+    tail -f /dev/null #preventing the main process from exiting
+fi
+
 # Sync docker time
 #ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone

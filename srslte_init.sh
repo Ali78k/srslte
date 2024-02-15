@@ -86,7 +86,7 @@ elif [[ "$COMPONENT_NAME" =~ ^(gnb$) || "$COMPONENT_NAME" =~ ^(enb$) || "$COMPON
 	/usr/local/bin/srsenb
 elif [[ "$COMPONENT_NAME" =~ ^(ue_zmq$) || "$COMPONENT_NAME" =~ ^(ue_5g_zmq$) ]]; then
 	echo "Deploying component: '$COMPONENT_NAME'"
-	/usr/local/bin/srsue
+	/usr/local/bin/srsue &
 else
 	echo "Error: Invalid component name: '$COMPONENT_NAME'"
 fi

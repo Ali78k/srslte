@@ -61,6 +61,9 @@ elif [[ "$COMPONENT_NAME" =~ ^(ue_zmq$) ]]; then
 elif [[ "$COMPONENT_NAME" =~ ^(ue_5g_zmq$) ]]; then
 	echo "Configuring component: '$COMPONENT_NAME'"
 	cp /mnt/srslte/ue_5g_zmq.conf /etc/srsran/ue.conf
+elif [[ "$COMPONENT_NAME" =~ ^(ue_5g_disaggregation_zmq$) ]]; then
+	echo "Configuring component: '$COMPONENT_NAME'"
+	cp /mnt/srslte/ue_5g_disaggregation_zmq.conf /etc/srsran/ue.conf
 else
 	echo "Error: Invalid component name: '$COMPONENT_NAME'"
 fi

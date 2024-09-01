@@ -78,6 +78,7 @@ sed -i 's|UE1_IMSI|'$UE1_IMSI'|g' /etc/srsran/ue.conf
 sed -i 's|SRS_UE_IP|'$SRS_UE_IP'|g' /etc/srsran/ue.conf
 sed -i 's|SRS_ENB_IP|'$SRS_ENB_IP'|g' /etc/srsran/ue.conf
 sed -i 's|SRS_GNB_IP|'$SRS_GNB_IP'|g' /etc/srsran/ue.conf
+sed -i 's|SRS_DU_IP|'$SRS_DU_IP'|g' /etc/srsran/ue.conf
 
 # For dbus not started issue when host machine is running Ubuntu 22.04
 service dbus start && service avahi-daemon start
@@ -87,7 +88,7 @@ if [[ -z "$COMPONENT_NAME" ]]; then
 elif [[ "$COMPONENT_NAME" =~ ^(gnb$) || "$COMPONENT_NAME" =~ ^(enb$) || "$COMPONENT_NAME" =~ ^(enb_zmq$) || "$COMPONENT_NAME" =~ ^(gnb_zmq$) ]]; then
 	echo "Deploying component: '$COMPONENT_NAME'"
 	/usr/local/bin/srsenb
-elif [[ "$COMPONENT_NAME" =~ ^(ue_zmq$) || "$COMPONENT_NAME" =~ ^(ue_5g_zmq$) ]]; then
+elif [[ "$COMPONENT_NAME" =~ ^(ue_zmq$) || "$COMPONENT_NAME" =~ ^(ue_5g_zmq$) || "$COMPONENT_NAME" =~ ^(ue_5g_disaggregation_zmq$) ]]; then
 	echo "Deploying component: '$COMPONENT_NAME'"
 	/usr/local/bin/srsue &
 else
